@@ -1,0 +1,39 @@
+### Base URL
+@BASE_URL = http://localhost:3000
+@USER_ID = 1
+
+### Get All Users
+GET {{BASE_URL}}/api/v1/users
+Accept: application/json
+
+
+### Get User by ID
+GET {{BASE_URL}}/api/v1/users/{{USER_ID}}
+Accept: application/json
+
+
+### Create new User
+POST {{BASE_URL}}/api/v1/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "password": "securepassword"
+}
+
+
+### Update User by ID
+PUT {{BASE_URL}}/api/v1/users/{{USER_ID}}
+Content-Type: application/json
+
+{
+  "name": "Jane Doe",
+  "email": "jane.doe@example.com",
+  "password": "newsecurepassword"
+}
+
+
+### Delete User by ID
+DELETE {{BASE_URL}}/api/v1/users/{{USER_ID}}
+Accept: application/json

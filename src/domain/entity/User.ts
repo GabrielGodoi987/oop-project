@@ -1,17 +1,22 @@
 export class User {
-  private _id: string;
+  private _id: string | null;
   private _name: string;
   private _email: string;
   private _password: string;
 
-  constructor(id: string, name: string, email: string, password: string) {
-    this._id = id;
+  constructor(
+    id: string | null,
+    name: string,
+    email: string,
+    password: string
+  ) {
+    this._id = id ? id : this.generateId();
     this._name = name;
     this._email = email;
     this._password = password;
   }
 
-  get id(): string {
+  get id(): string | null {
     return this._id;
   }
 
@@ -41,5 +46,9 @@ export class User {
 
   set password(value: string) {
     this._password = value;
+  }
+
+  private generateId(): string {
+    return Math.random().toString(36).substring(2, 9);
   }
 }
