@@ -14,40 +14,40 @@ export class UserController {
   constructor() {
     this.repository = new UserRepositoryImpl();
   }
-  getAllUsers(req: Request, res: Response) {
+  async getAllUsers(req: Request, res: Response) {
     const useCase = new GetAllUseCase(this.repository);
-    const users = useCase.execute();
-    return res.json(users);
+    const users = await useCase.execute();
+    res.json(users);
   }
 
-  createUser(req: Request, res: Response) {
+  async createUser(req: Request, res: Response) {
     const useCase = new CreateUserUseCase(this.repository);
     const { name, email, password } = req.body;
     const userData = new CreateUserDTO(name, email, password);
-    const newUser = useCase.execute(userData);
+    const newUser = await useCase.execute(userData);
     res.status(201).json(newUser);
   }
 
-  getUserById(req: Request, res: Response) {
+  async getUserById(req: Request, res: Response) {
     const useCase = new FindOneByIdUseCase(this.repository);
     const { id } = req.params;
-    const user = useCase.execute(id);
+    const user = await useCase.execute(id);
     res.json(user);
   }
 
-  updateUserById(req: Request, res: Response) {
+  async updateUserById(req: Request, res: Response) {
     const useCase = new UpdateOneUseCase(this.repository);
     const { id } = req.params;
     const { name, email, password } = req.body;
     const userData = new UpdateUserDTO(id, name, email, password);
-    const updatedUser = useCase.execute(userData);
+    const updatedUser = await useCase.execute(userData);
     res.json(updatedUser);
   }
 
-  deleteUserById(req: Request, res: Response) {
+  async deleteUserById(req: Request, res: Response) {
     const useCase = new DeleteOneUseCase(this.repository);
     const { id } = req.params;
-    useCase.execute(id);
+    await useCase.execute(id);
     res.status(204).send({ message: "User deleted successfully" });
   }
 }
