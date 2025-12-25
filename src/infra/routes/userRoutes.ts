@@ -14,12 +14,10 @@ export function createUserRoutes(): Router {
   });
 
   router.get("/:id", (req, res) => {
-    const { id } = req.params;
     useController.getUserById(req, res);
   });
 
   router.put("/:id", (req, res) => {
-    const { id } = req.params;
     useController.updateUserById(req, res);
   });
 

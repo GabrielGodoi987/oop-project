@@ -9,13 +9,16 @@ export class UserRepositoryImpl implements IUserRepository {
     this.users.push(user);
     return user;
   }
+
   async findById(id: string): Promise<User | null> {
-    const user = this.users.find((user) => user.id === id);
-    return user || null;
+    const user = this.users.findIndex((u) => u.id === id);
+    return user !== -1 ? this.users[user] : null;
   }
+
   async findAll(): Promise<User[]> {
     return this.users;
   }
+
   async update(user: User): Promise<boolean> {
     const index = this.users.findIndex((u) => u.id === user.id);
     if (index !== -1) {
@@ -24,6 +27,7 @@ export class UserRepositoryImpl implements IUserRepository {
     }
     return false;
   }
+
   async delete(id: string): Promise<boolean> {
     const initialLength = this.users.length;
     this.users = this.users.filter((user) => user.id !== id);
